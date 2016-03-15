@@ -1,3 +1,4 @@
+<<<<<<< ba439acea4a27dc07907dbc4e835e034158756b7
 # Built application files
 *.apk
 *.ap_
@@ -30,3 +31,13 @@ proguard/
 
 # Android Studio captures folder
 captures/
+=======
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+>>>>>>> First Commit
