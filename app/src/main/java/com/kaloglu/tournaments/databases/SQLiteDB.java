@@ -8,8 +8,11 @@ public class SQLiteDB {
 
 
 /**
- * Scripts...
- *
+ *  Create Scripts...
+ */
+
+/*
+
  BEGIN TRANSACTION;
  CREATE TABLE "Tournaments" (
  `tournamentId`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -58,6 +61,13 @@ public class SQLiteDB {
  FOREIGN KEY(`fixtureId`) REFERENCES `Fixtures`(`fixtureId`),
  FOREIGN KEY(`playerId`) REFERENCES `Players`(`playerId`)
  );
+*/
+
+ /**
+ *      Insert Scripts
+ */
+
+ /*
 
  INSERT INTO `Tournaments` (tournamentId,tournamentName,isLeague,hasRevenge,createTs) VALUES (1,'Turnuva1',1,1,'2016-03-19 00:00');
  INSERT INTO `Teams` (teamId,teamName) VALUES (1,'Bayern Munich'),
@@ -111,5 +121,41 @@ public class SQLiteDB {
 
  COMMIT;
 
- *
+
+ */
+
+
+/**
+ *   Queries
+ */
+
+/*
+    Fixtures Q.
+
+    select
+fixtureId as 'Match',
+(select tournamentName from Tournaments where Tournaments.tournamentId=Fixtures.tournamentId) as 'Tournament',
+(select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')' 	from Players where Players.playerId=Fixtures.homePlayerId) as 'Home', homeScore,
+awayScore, (select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')' from Players where Players.playerId=Fixtures.awayPlayerId) as 'away'
+
+from Fixtures --where awayPlayerId=3
+ */
+
+/*
+    Standings Q.
+
+select
+(select Tournaments.tournamentName from Tournaments where Tournaments.tournamentId=Details.tournamentId) as 'Tournament',
+(select Players.playerName from Players where Players.playerId=Details.playerId) ||  '(' || (select Teams.teamName from Teams where Teams.teamId=Details.teamId) || ')' as 'Player',
+(select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and (Fixtures.homePlayerId=Details.playerId or Fixtures.awayPlayerId=Details.playerId) and homeScore is not null and awayScore is not null) as 'G',
+(select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and ((Fixtures.homePlayerId=Details.playerId and homeScore>awayScore) or (Fixtures.awayPlayerId=Details.playerId and awayScore>homeScore))) as 'W',
+(select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and ((Fixtures.homePlayerId=Details.playerId and homeScore=awayScore) or (Fixtures.awayPlayerId=Details.playerId and awayScore=homeScore))) as 'D',
+(select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and ((Fixtures.homePlayerId=Details.playerId and homeScore<awayScore) or (Fixtures.awayPlayerId=Details.playerId and awayScore<homeScore))) as 'L',
+(select sum(case Details.playerId when Fixtures.homePlayerId then homeScore else awayScore end) from Fixtures where Fixtures.tournamentId = Details.tournamentId and (Fixtures.homePlayerId=Details.playerId or Fixtures.awayPlayerId=Details.playerId)) as 'GF',
+(select sum(case Details.playerId when Fixtures.awayPlayerId then homeScore else awayScore end) from Fixtures where Fixtures.tournamentId = Details.tournamentId and (Fixtures.homePlayerId=Details.playerId or Fixtures.awayPlayerId=Details.playerId)) as 'GA',
+(select sum(case Details.playerId when Fixtures.homePlayerId then homeScore else awayScore end) - sum(case Details.playerId when Fixtures.awayPlayerId then homeScore else awayScore end) from Fixtures where Fixtures.tournamentId = Details.tournamentId and (Fixtures.homePlayerId=Details.playerId or Fixtures.awayPlayerId=Details.playerId)) as 'GD',
+((select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and ((Fixtures.homePlayerId=Details.playerId and homeScore>awayScore) or (Fixtures.awayPlayerId=Details.playerId and awayScore>homeScore))) *3)  + (select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and ((Fixtures.homePlayerId=Details.playerId and homeScore=awayScore) or (Fixtures.awayPlayerId=Details.playerId and awayScore=homeScore)))as 'P'
+ from Details
+
+ order by P desc
  */
