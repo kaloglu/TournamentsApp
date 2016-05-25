@@ -13,51 +13,50 @@ public class SQLiteDB {
 
 /*
 
- BEGIN TRANSACTION;
- CREATE TABLE "Tournaments" (
- `tournamentId`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
- `tournamentName`	TEXT NOT NULL,
- `isLeague`	INTEGER NOT NULL DEFAULT 1,
- `hasRevenge`	INTEGER NOT NULL DEFAULT 1,
- `createTs`	TEXT NOT NULL
+ CREATE TABLE Tournaments (
+ `tournamentId`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ `tournamentName`  TEXT NOT NULL,
+ `isLeague`  INTEGER NOT NULL DEFAULT 1,
+ `hasRevenge`  INTEGER NOT NULL DEFAULT 1,
+ `createTs`  TEXT NOT NULL
  );
 
- CREATE TABLE "Teams" (
- `teamId`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
- `teamName`	TEXT NOT NULL
+ CREATE TABLE Teams (
+ `teamId`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ `teamName`  TEXT NOT NULL
  );
- CREATE TABLE "Players" (
- `playerId`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
- `playerName`	TEXT NOT NULL UNIQUE,
- `favoriteTeamId`	INTEGER NOT NULL,
+ CREATE TABLE Players (
+ `playerId`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ `playerName`  TEXT NOT NULL UNIQUE,
+ `favoriteTeamId`  INTEGER NOT NULL,
  FOREIGN KEY(`favoriteTeamId`) REFERENCES `Teams`(`teamId`)
  );
- CREATE TABLE "Fixtures" (
- `fixtureId`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
- `tournamentId`	INTEGER NOT NULL,
- `homePlayerId`	INTEGER NOT NULL,
- `homeScore`	INTEGER,
- `awayScore`	INTEGER,
- `awayPlayerId`	INTEGER NOT NULL,
+ CREATE TABLE Fixtures (
+ `fixtureId`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ `tournamentId`  INTEGER NOT NULL,
+ `homePlayerId`  INTEGER NOT NULL,
+ `homeScore`  INTEGER,
+ `awayScore`  INTEGER,
+ `awayPlayerId`  INTEGER NOT NULL,
  FOREIGN KEY(`tournamentId`) REFERENCES `Tournaments`(`tournamentId`),
  FOREIGN KEY(`homePlayerId`) REFERENCES `Players`(`playerId`),
  FOREIGN KEY(`awayPlayerId`) REFERENCES `Players`(`playerId`)
  );
- CREATE TABLE "Details" (
- `detailId`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
- `tournamentId`	INTEGER NOT NULL,
- `playerId`	INTEGER NOT NULL,
- `teamId`	INTEGER NOT NULL,
+ CREATE TABLE Details (
+ `detailId`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ `tournamentId`  INTEGER NOT NULL,
+ `playerId`  INTEGER NOT NULL,
+ `teamId`  INTEGER NOT NULL,
  FOREIGN KEY(`tournamentId`) REFERENCES `Tournaments`(`tournamentId`),
  FOREIGN KEY(`playerId`) REFERENCES `Players`(`playerId`),
  FOREIGN KEY(`teamId`) REFERENCES `Teams`(`teamId`)
  );
- CREATE TABLE "Cards" (
- `cardId`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
- `fixtureId`	INTEGER NOT NULL,
- `playerId`	INTEGER NOT NULL,
- `colorType`	INTEGER NOT NULL DEFAULT 2,
- `carderName`	TEXT NOT NULL,
+ CREATE TABLE Cards (
+ `cardId`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+ `fixtureId`  INTEGER NOT NULL,
+ `playerId`  INTEGER NOT NULL,
+ `colorType`  INTEGER NOT NULL DEFAULT 2,
+ `carderName`  TEXT NOT NULL,
  FOREIGN KEY(`fixtureId`) REFERENCES `Fixtures`(`fixtureId`),
  FOREIGN KEY(`playerId`) REFERENCES `Players`(`playerId`)
  );
@@ -135,7 +134,7 @@ public class SQLiteDB {
     select
 fixtureId as 'Match',
 (select tournamentName from Tournaments where Tournaments.tournamentId=Fixtures.tournamentId) as 'Tournament',
-(select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')' 	from Players where Players.playerId=Fixtures.homePlayerId) as 'Home', homeScore,
+(select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')'   from Players where Players.playerId=Fixtures.homePlayerId) as 'Home', homeScore,
 awayScore, (select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')' from Players where Players.playerId=Fixtures.awayPlayerId) as 'away'
 
 from Fixtures --where awayPlayerId=3
