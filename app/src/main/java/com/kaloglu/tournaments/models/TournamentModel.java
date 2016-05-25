@@ -19,6 +19,8 @@ public class TournamentModel {
     public boolean isLeague;
     public boolean hasRevenge;
     private long createTs;
+    private String tournamentName;
+    private String createTS;
 
     public long getId() {
         return id;
@@ -34,6 +36,14 @@ public class TournamentModel {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public void setCreateTS(String createTS) {
+        this.createTS = createTS;
     }
 
     public static final class Columns implements BaseColumns {
@@ -57,7 +67,7 @@ public class TournamentModel {
     public Enums.DatabaseResult SaveTournament(Context context) {
         try {
             DBHelper database = new DBHelper(context);
-            this.id = database.SaveToDB(TABLENAME, Columns.class,getContentValues());
+            this.id = database.SaveToDB(TABLENAME, Columns.ID,getContentValues());
             return Enums.DatabaseResult.SUCCESS;
         } catch (SQLiteException se) {
             se.printStackTrace();
