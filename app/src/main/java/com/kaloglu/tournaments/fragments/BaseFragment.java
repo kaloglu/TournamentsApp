@@ -4,10 +4,13 @@ package com.kaloglu.tournaments.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.kaloglu.tournaments.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +19,7 @@ public abstract class BaseFragment extends Fragment {
     private Context context;
     private int resourceID;
     private View rootView;
+    private boolean showFlyerButton=false;
 
     protected abstract int setResourceID();
 
@@ -36,6 +40,13 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         resourceID = setResourceID();
+
+         FloatingActionButton flyerButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        if (showFlyerButton)
+            flyerButton.setVisibility(View.VISIBLE);
+        else
+            flyerButton.setVisibility(View.GONE);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -70,5 +81,9 @@ public abstract class BaseFragment extends Fragment {
 
     public View getRootView() {
         return rootView;
+    }
+
+    public void setShowFlyerButton(boolean showFlyerButton) {
+        this.showFlyerButton = showFlyerButton;
     }
 }

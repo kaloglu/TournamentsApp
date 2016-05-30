@@ -2,16 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kaloglu.tournaments.fragments.TournamentsFragment">
+    tools:context=".fragments.FixturesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fixtureList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Players"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

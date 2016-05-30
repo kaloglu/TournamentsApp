@@ -3,31 +3,22 @@ package com.kaloglu.tournaments.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.kaloglu.tournaments.R;
-import com.kaloglu.tournaments.TournamentsAdapter;
-import com.kaloglu.tournaments.models.TournamentModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.kaloglu.tournaments.adapters.TournamentsAdapter;
+import com.kaloglu.tournaments.databases.DBHelper;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TournamentsFragment extends BaseFragment {
 
-
-    private View rootView;
-    private RecyclerView recyclerView;
-
     public TournamentsFragment() {
-        // Required empty public constructor
+        super.setShowFlyerButton(true);
     }
-
 
     @Override
     protected int setResourceID() {
@@ -36,10 +27,13 @@ public class TournamentsFragment extends BaseFragment {
 
     @Override
     protected void initializeScreen() {
-        rootView = super.getRootView();
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.tournamentList);
+        View rootView = super.getRootView();
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.tournamentList);
 
-        adapter = new TournamentsAdapter(this.getDummyData(),);
+        TournamentsAdapter tournamentsAdapter = new TournamentsAdapter(getActivity(), new DBHelper(getContext()).getTournamentsFromDB());
+        recyclerView.setAdapter(tournamentsAdapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
@@ -60,21 +54,6 @@ public class TournamentsFragment extends BaseFragment {
     @Override
     protected void onResumeFragment() {
 
-    }
-
-    public static void getDummyData() {
-        List<TournamentModel> tournamentDatas = new ArrayList<>();
-        String[] tournaments = {"turnuva 1", "turnuva 2", " turnuva 3"};
-        String[] createTS = {"11111111", "22222222", "33333333"};
-        boolean[] isLeague = {true, false, true};
-        boolean[] hasRevenge = {false, false, true};
-
-        for (int i = 0; i<tournaments.length; i++) {
-            TournamentModel tournamentModel= new TournamentModel();
-            tournamentModel.setTournamentName(tournaments[i]);
-            tournamentModel.setCreateTS(tournaments[i]);
-            tournamentDatas.add(tournamentModel);
-        }
     }
 
 }
