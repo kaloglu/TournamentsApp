@@ -8,6 +8,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Database(Context context) {
         super(context, DatabaseStructure.DBNAME, null, DatabaseStructure.DBVERSION);
+
     }
 
     public void FreshDB(SQLiteDatabase sqLiteDatabase) {
@@ -22,6 +23,7 @@ public class Database extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(DatabaseStructure.Create_Tables_Script);
+        sqLiteDatabase.execSQL(DatabaseStructure.InsertScript);
     }
 
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {

@@ -3,33 +3,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import"/>
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery"/>
-        <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_fixture"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow"/>
+            android:title="Fikstur"/>
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools"/>
+            android:id="@+id/nav_score_table"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Puan Durumu"/>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Diğer">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share"/>
+                android:id="@+id/nav_tournament"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="Turnuva"/>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_player"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Oyuncular"/>
+            <item
+                android:id="@+id/nav_team"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send"/>
+                android:title="Takımlar"/>
         </menu>
     </item>
 
