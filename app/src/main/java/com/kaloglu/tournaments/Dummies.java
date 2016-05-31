@@ -40,7 +40,7 @@ public class Dummies {
         for (int i = 0; i < players.length; i++) {
             PlayerModel playerModel = new PlayerModel();
             playerModel.setName(players[i]);
-            playerModel.setFavoriteTeam(players[1]);
+            playerModel.setFavoriteTeam(favoriteTeams[1]);
             playerDatas.add(playerModel);
         }
 
