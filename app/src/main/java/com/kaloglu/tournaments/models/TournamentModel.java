@@ -9,11 +9,12 @@ import android.provider.BaseColumns;
 
 import com.kaloglu.tournaments.commons.Enums;
 import com.kaloglu.tournaments.databases.DBHelper;
+import com.kaloglu.tournaments.databases.structures.TournamentsTable;
 
 /**
  * Created by kaloglu on 23/05/16.
  */
-public class TournamentModel {
+public class TournamentModel extends BaseModel {
 
     private static final String TABLENAME = "Tournaments";
     private long id;
@@ -22,33 +23,15 @@ public class TournamentModel {
     private boolean hasRevenge;
     private long createTS;
 
-    public static final class Columns implements BaseColumns {
-        public static final String ID = "tournamentId";
-        public static final String NAME = "tournamentName";
-        public static final String ISLEAGUE = "isLeague";
-        public static final String HASREVENGE = "hasRevenge";
-        public static final String CREATETS = "createTS";
-    }
-
-    public ContentValues getContentValues() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Columns.ID, id);
-        contentValues.put(Columns.NAME, name);
-        contentValues.put(Columns.ISLEAGUE, isLeague);
-        contentValues.put(Columns.HASREVENGE, hasRevenge);
-        contentValues.put(Columns.CREATETS, getCreateTS());
-        return contentValues;
-    }
-
     public TournamentModel() {
     }
 
     public TournamentModel(Cursor paramCursor) {
-        id = paramCursor.getLong(paramCursor.getColumnIndex(Columns.ID));
-        name = paramCursor.getString(paramCursor.getColumnIndex(Columns.NAME));
-        isLeague = (paramCursor.getInt(paramCursor.getColumnIndex(Columns.ISLEAGUE)) == 1);
-        hasRevenge = (paramCursor.getInt(paramCursor.getColumnIndex(Columns.HASREVENGE)) == 1);
-        createTS = paramCursor.getLong(paramCursor.getColumnIndex(Columns.CREATETS));
+        id = paramCursor.getLong(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.ID));
+        name = paramCursor.getString(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.NAME));
+        isLeague = (paramCursor.getInt(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.ISLEAGUE)) == 1);
+        hasRevenge = (paramCursor.getInt(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.HASREVENGE)) == 1);
+        createTS = paramCursor.getLong(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.CREATETS));
     }
 
     public long getId() {
@@ -91,14 +74,5 @@ public class TournamentModel {
         return hasRevenge;
     }
 
-    public Enums.DatabaseResult SaveTournament(Context context) {
-        try {
-            DBHelper database = new DBHelper(context, true);
-            this.id = database.SaveToDB(TABLENAME, Columns.ID, getContentValues());
-            return Enums.DatabaseResult.SUCCESS;
-        } catch (SQLiteException se) {
-            se.printStackTrace();
-            return Enums.DatabaseResult.FAILURE;
-        }
-    }
+
 }
