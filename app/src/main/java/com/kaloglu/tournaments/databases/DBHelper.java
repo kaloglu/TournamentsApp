@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
+import com.kaloglu.tournaments.databases.structures.TournamentsTable;
 import com.kaloglu.tournaments.models.PlayerModel;
 import com.kaloglu.tournaments.models.TournamentModel;
 
@@ -51,7 +52,7 @@ public class DBHelper extends Database {
     }
 
     public ArrayList<TournamentModel> getTournamentsFromDB() {
-        String selectQuery = "select * FROM " + DatabaseStructure.Table_Name_Tournaments +
+        String selectQuery = "select * FROM " + TournamentsTable.NAME +
                 " ORDER BY createTS DESC" +
                 " LIMIT 20";
 
@@ -69,22 +70,22 @@ public class DBHelper extends Database {
         }
         return tournamentModels;
     }
-public ArrayList<PlayerModel> getPlayersFromDB() {
-        String selectQuery = "select * FROM " + DatabaseStructure.Table_Name_Players;
-
-        Log.e("DB", "QUERY: " + selectQuery);
-        ArrayList<PlayerModel> playerModels = new ArrayList<>();
-        if (database.isOpen()) {
-            Cursor cursor = database.rawQuery(selectQuery, null);
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    playerModels.add(new PlayerModel(cursor));
-                } while (cursor.moveToNext());
-            }
-            database.close();
-        }
-        return playerModels;
-    }
+//public ArrayList<PlayerModel> getPlayersFromDB() {
+//        String selectQuery = "select * FROM " + DatabaseStructure.Table_Players;
+//
+//        Log.e("DB", "QUERY: " + selectQuery);
+//        ArrayList<PlayerModel> playerModels = new ArrayList<>();
+//        if (database.isOpen()) {
+//            Cursor cursor = database.rawQuery(selectQuery, null);
+//            // looping through all rows and adding to list
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    playerModels.add(new PlayerModel(cursor));
+//                } while (cursor.moveToNext());
+//            }
+//            database.close();
+//        }
+//        return playerModels;
+//    }
 
 }
