@@ -15,8 +15,9 @@ import java.util.ArrayList;
 
 public class DBHelper extends Database {
 
-    private final SQLiteDatabase database;
-    private final boolean isWritable;
+    private SQLiteDatabase database;
+    private boolean isWritable;
+    private static DBHelper instance;
 
     public DBHelper(Context context, boolean isWritable) {
         super(context);
@@ -35,6 +36,22 @@ public class DBHelper extends Database {
         this.isWritable = false;
 
         database = getReadableDatabase();
+    }
+
+    public static DBHelper getInstance(Context context) {
+        if(null == instance)
+        {
+            instance = new DBHelper(context);
+        }
+        return instance;
+    }
+
+    public static DBHelper getInstance() {
+        if(null == instance)
+        {
+            throw new IllegalArgumentException("Parameter context missing");
+        }
+        return instance;
     }
 
     public long SaveToDB(String tableName, String keyColumnName, ContentValues contentValues) {
