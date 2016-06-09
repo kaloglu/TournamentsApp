@@ -10,11 +10,15 @@ import android.view.View;
 import com.kaloglu.tournaments.R;
 import com.kaloglu.tournaments.adapters.TournamentsAdapter;
 import com.kaloglu.tournaments.databases.DBHelper;
+import com.kaloglu.tournaments.databases.tables.Tournaments;
+import com.kaloglu.tournaments.models.TournamentModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TournamentsFragment extends BaseFragment {
+
+    private Tournaments tournaments;
 
     public TournamentsFragment() {
         super.setShowFlyerButton(true);
@@ -34,6 +38,14 @@ public class TournamentsFragment extends BaseFragment {
         recyclerView.setAdapter(tournamentsAdapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        tournaments = Tournaments.getInstance(getContext());
+        TournamentModel tournamentModel = tournaments.find()
+                .sort("tournamentId","DESC")
+                .limit(1)
+                .execute()
+                .json()
+                .getObject(TournamentModel.class);
+//        Log.d("sqlitedaoquery",jsonArray.toString());
     }
 
     @Override
