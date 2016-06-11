@@ -4,7 +4,7 @@ package com.kaloglu.tournaments.models;
  * Created by kaloglu on 23/05/16.
  */
 public class FixtureModel {
-    private long id;
+    private long fixtureId;
     private long tournamentId;
     private long homePlayerId;
     private String homeScore;
@@ -14,8 +14,8 @@ public class FixtureModel {
     private String homePlayerName;
     private String awayPlayerName;
 
-    public long getId() {
-        return id;
+    public long getFixtureId() {
+        return fixtureId;
     }
 
     public long getTournamentId() {

@@ -58,7 +58,8 @@
             </LinearLayout>
         </LinearLayout>
 
-        <include layout="@layout/modification_panel"
+        <include
+            layout="@layout/modification_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

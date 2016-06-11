@@ -4,13 +4,13 @@ package com.kaloglu.tournaments.models;
  * Created by kaloglu on 23/05/16.
  */
 public class DetailModel {
-    private long id;
+    private long detailId;
     private long tournamentId;
     private long playerId;
     private long teamId;
 
-    public long getId() {
-        return id;
+    public long getDetailId() {
+        return detailId;
     }
 
     public long getTournamentId() {

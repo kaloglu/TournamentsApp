@@ -5,11 +5,11 @@
         <item
             android:id="@+id/nav_fixture"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Fikstur"/>
+            android:title="Fikstur" />
         <item
             android:id="@+id/nav_score_table"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Puan Durumu"/>
+            android:title="Puan Durumu" />
     </group>
 
     <item android:title="Diğer">
@@ -17,15 +17,15 @@
             <item
                 android:id="@+id/nav_tournament"
                 android:icon="@drawable/ic_menu_camera"
-                android:title="Turnuva"/>
+                android:title="Turnuva" />
             <item
                 android:id="@+id/nav_player"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Oyuncular"/>
+                android:title="Oyuncular" />
             <item
                 android:id="@+id/nav_team"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Takımlar"/>
+                android:title="Takımlar" />
         </menu>
     </item>
 

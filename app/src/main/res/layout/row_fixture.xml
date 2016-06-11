@@ -27,7 +27,7 @@
                 android:singleLine="true"
                 android:text="{0}."
                 android:textSize="10sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,11 +61,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="10sp"
-            android:hint="0"
+            android:background="@color/colorPrimaryLight"
             android:gravity="center_vertical|center_horizontal"
+            android:hint="0"
             android:textColorHint="@color/hint_text_color"
-            android:background="@color/colorPrimaryLight"/>
+            android:textSize="10sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -82,11 +82,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="10sp"
-            android:hint="0"
+            android:background="@color/colorPrimaryLight"
             android:gravity="center_vertical|center_horizontal"
+            android:hint="0"
             android:textColorHint="@color/hint_text_color"
-            android:background="@color/colorPrimaryLight"/>
+            android:textSize="10sp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/awayTeamProfile"

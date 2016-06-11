@@ -7,11 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.gson.reflect.TypeToken;
 import com.kaloglu.tournaments.R;
 import com.kaloglu.tournaments.adapters.TournamentsAdapter;
-import com.kaloglu.tournaments.databases.DBHelper;
 import com.kaloglu.tournaments.databases.tables.Tournaments;
 import com.kaloglu.tournaments.models.TournamentModel;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +24,7 @@ public class TournamentsFragment extends BaseFragment {
 
     public TournamentsFragment() {
         super.setShowFlyerButton(true);
+
     }
 
     @Override
@@ -33,18 +36,13 @@ public class TournamentsFragment extends BaseFragment {
     protected void initializeScreen() {
         View rootView = super.getRootView();
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.tournamentList);
+        if (getActivity() != null) {
 
-        TournamentsAdapter tournamentsAdapter = new TournamentsAdapter(getActivity(), new DBHelper(getContext()).getTournamentsFromDB());
-        recyclerView.setAdapter(tournamentsAdapter);
-
+            TournamentsAdapter tournamentsAdapter = new TournamentsAdapter(getActivity(), getTournamentList());
+            recyclerView.setAdapter(tournamentsAdapter);
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        tournaments = Tournaments.getInstance(getContext());
-        TournamentModel tournamentModel = tournaments.find()
-                .sort("tournamentId","DESC")
-                .limit(1)
-                .execute()
-                .json()
-                .getObject(TournamentModel.class);
+
 //        Log.d("sqlitedaoquery",jsonArray.toString());
     }
 
@@ -68,4 +66,12 @@ public class TournamentsFragment extends BaseFragment {
 
     }
 
+    public ArrayList<TournamentModel> getTournamentList() {
+        tournaments = Tournaments.getInstance(getActivity());
+        return tournaments.find()
+                .sort("tournamentId", "DESC")
+                .limit(20)
+                .getArray(new TypeToken<ArrayList<TournamentModel>>() {
+                });
+    }
 }

@@ -41,7 +41,8 @@
             </LinearLayout>
         </LinearLayout>
 
-        <include layout="@layout/modification_panel"
+        <include
+            layout="@layout/modification_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -51,5 +52,5 @@
         android:layout_height="1dp"
         android:background="@color/colorPrimaryDark"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+        android:paddingRight="10dp" />
 </LinearLayout>
