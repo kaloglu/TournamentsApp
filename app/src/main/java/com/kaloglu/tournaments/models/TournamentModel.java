@@ -1,24 +1,14 @@
 package com.kaloglu.tournaments.models;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.AbstractCursor;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
-import android.provider.BaseColumns;
-
-import com.kaloglu.tournaments.commons.Enums;
-import com.kaloglu.tournaments.databases.DBHelper;
-import com.kaloglu.tournaments.databases.structures.TournamentsTable;
 
 /**
  * Created by kaloglu on 23/05/16.
  */
 public class TournamentModel extends BaseModel {
 
-    private static final String TABLENAME = "Tournaments";
-    private long id;
-    private String name;
+    private long tournamentId;
+    private String tournamentName;
     private boolean isLeague;
     private boolean hasRevenge;
     private long createTS;
@@ -26,20 +16,12 @@ public class TournamentModel extends BaseModel {
     public TournamentModel() {
     }
 
-    public TournamentModel(Cursor paramCursor) {
-        id = paramCursor.getLong(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.ID));
-        name = paramCursor.getString(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.NAME));
-        isLeague = (paramCursor.getInt(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.ISLEAGUE)) == 1);
-        hasRevenge = (paramCursor.getInt(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.HASREVENGE)) == 1);
-        createTS = paramCursor.getLong(paramCursor.getColumnIndex(TournamentsTable.COLUMNS.CREATETS));
-    }
-
     public long getId() {
-        return id;
+        return tournamentId;
     }
 
     public String getName() {
-        return name;
+        return tournamentName;
     }
 
     public void setLeague(boolean league) {
@@ -58,12 +40,12 @@ public class TournamentModel extends BaseModel {
         return createTS;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long tournamentId) {
+        this.tournamentId = tournamentId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String tournamentName) {
+        this.tournamentName = tournamentName;
     }
 
     public boolean isLeague() {

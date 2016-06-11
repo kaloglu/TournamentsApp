@@ -62,7 +62,7 @@ public class Dummies {
 
     public static ArrayList<FixtureModel> getDummyFixtures() {
         ArrayList<FixtureModel> fixtureModels = new ArrayList<>();
-        String[] tournaments = {"Turnuva 1", "Turnuva 1", " Turnuva 1","Turnuva 1", "Turnuva 1", " Turnuva 1"};
+        String[] tournaments = {"Turnuva 1", "Turnuva 1", " Turnuva 1", "Turnuva 1", "Turnuva 1", " Turnuva 1"};
         String[] homePlayers = {"Player 1", "Player 1", "Player 2", "Player 3", "Player 3", "Player 2"};
         String[] awayPlayers = {"Player 2", "Player 3", "Player 3", "Player 1", "Player 2", "Player 1"};
         String[] homeScores = {"1", "1", "2", "3", "3", "2"};

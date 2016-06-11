@@ -1,16 +1,10 @@
 package com.kaloglu.tournaments.models;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.provider.BaseColumns;
-
-import com.kaloglu.tournaments.databases.structures.PlayersTable;
-
 /**
  * Created by kaloglu on 23/05/16.
  */
 public class PlayerModel {
-    private long id;
+    private long playerId;
     private String name;
     private long favoriteTeamId;
     private String favoriteTeam;
@@ -18,14 +12,8 @@ public class PlayerModel {
     public PlayerModel() {
     }
 
-    public PlayerModel(Cursor paramCursor) {
-        id = paramCursor.getLong(paramCursor.getColumnIndex(PlayersTable.COLUMNS.ID));
-        name = paramCursor.getString(paramCursor.getColumnIndex(PlayersTable.COLUMNS.NAME));
-        favoriteTeamId = paramCursor.getInt(paramCursor.getColumnIndex(PlayersTable.COLUMNS.FAVORITETEAMID));
-    }
-
-    public long getId() {
-        return id;
+    public long getPlayerId() {
+        return playerId;
     }
 
     public String getName() {

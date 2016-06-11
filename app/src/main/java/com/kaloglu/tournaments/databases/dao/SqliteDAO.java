@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kaloglu.tournaments.databases.DBHelper;
 import com.kaloglu.tournaments.databases.dao.interfaces.ISqliteDAO;
 
@@ -13,15 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
 /**
- * Created by sreejeshpillai on 19/05/15.
  * https://github.com/sreejesh79/android-sqlitedao-demo/tree/master/app/src/main/java/com/kriyatma/sqlitedaodemo/
  */
-public class SqliteDAO implements ISqliteDAO {
+public abstract class SqliteDAO implements ISqliteDAO {
     protected String table_name = "";
     protected String[] fields = new String[]{};
     protected String primaryKey;
@@ -36,21 +35,19 @@ public class SqliteDAO implements ISqliteDAO {
 
     private Boolean isMultiSelect = true;
     private Boolean isWhereStart = false;
-    private JSONArray jsonObject;
-
-
-    public SqliteDAO() {
-        gson = new Gson();
-    }
+    private JSONObject jsonObject;
+    private JSONArray jsonArray;
+    private String createScript;
 
     public SqliteDAO(SQLiteDatabase db) {
         database = db;
-
+        initTable();
     }
 
     public SqliteDAO(Context context) {
         database = DBHelper.getInstance(context).getWritableDatabase();
         gson = new Gson();
+        initTable();
     }
 
     public ISqliteDAO table(String table) {
@@ -58,15 +55,15 @@ public class SqliteDAO implements ISqliteDAO {
         return this;
     }
 
-    public ISqliteDAO fields(String[] fields) {
+    public ISqliteDAO fields(String... fields) {
         this.fields = fields;
         return this;
     }
 
     public ISqliteDAO find() {
-        String strFields = "";
+        String strFields;
         strFields = fieldsToString(fields);
-        queryBuilder = "SELECT " + strFields.toString() + " FROM " + table_name + " ";
+        queryBuilder = "SELECT " + strFields + " FROM " + table_name + " ";
         isMultiSelect = true;
         isWhereStart = false;
         //dispatchEvent(new Event("new event",this));
@@ -74,10 +71,10 @@ public class SqliteDAO implements ISqliteDAO {
     }
 
     public ISqliteDAO findOne() {
-        String strFields = "";
+        String strFields;
         strFields = fieldsToString(fields);
         strLimit = "LIMIT 1";
-        queryBuilder = "SELECT " + strFields.toString() + " FROM " + table_name + " ";
+        queryBuilder = "SELECT " + strFields + " FROM " + table_name + " ";
         isMultiSelect = false;
         isWhereStart = false;
         return this;
@@ -85,13 +82,12 @@ public class SqliteDAO implements ISqliteDAO {
 
     public ISqliteDAO select(ISqliteDAO... daos) {
         queryBuilder = "SELECT ";
-        String strFields = "";
+        String strFields;
         strFields = fieldsToString(fields, table_name) + ",";
 
         String strTables = this.table_name;
         Integer mainCounter = 0;
         for (ISqliteDAO dao : daos) {
-            Integer counter = 0;
             SqliteDAO sqliteDAO = (SqliteDAO) dao;
 
             if (mainCounter < daos.length - 1) {
@@ -128,32 +124,32 @@ public class SqliteDAO implements ISqliteDAO {
         String fields_str = "";
         Integer counter = 0;
         for (String field : fields) {
-            if (field != primaryKey) {
-                if (counter < fields.length - 1) {
-                    fields_str += field + ",";
-                } else {
-                    fields_str += field;
-                }
+//            if (field != primaryKey) {
+            if (counter < fields.length - 1) {
+                fields_str += field + ",";
+            } else {
+                fields_str += field;
             }
+//            }
 
             counter++;
 
         }
-        String insertQuery = "INSERT INTO " + table_name + " ( " + fields_str + ") VALUES(" + values.toString() + ")";
+        String insertQuery = "INSERT INTO " + table_name + " ( " + fields_str + ") VALUES(" + values + ")";
         Log.d("save", insertQuery);
         database.execSQL(insertQuery);
         return this;
     }
 
-    public ISqliteDAO insert(Object[] values) {
+    public ISqliteDAO insert(String... values) {
         Log.d("ISqliteDAO", "insert");
         String strValues = "";
         Integer counter = 0;
-        for (Object value : values) {
+        for (String value : values) {
             if (counter < values.length - 1) {
-                strValues += "'" + value.toString() + "'" + ",";
+                strValues += "'" + value + "'" + ",";
             } else {
-                strValues += "'" + value.toString() + "'";
+                strValues += "'" + value + "'";
             }
             counter++;
         }
@@ -204,7 +200,9 @@ public class SqliteDAO implements ISqliteDAO {
     }
 
     public ISqliteDAO sort(String field, String sortby) {
-        strSort = "ORDER BY " + field + " " + sortby + " ";
+        strSort = "ORDER BY " + field;
+        if (!sortby.equals(""))
+            strSort += " " + sortby + " ";
         return this;
     }
 
@@ -216,7 +214,7 @@ public class SqliteDAO implements ISqliteDAO {
         if (this.foreignKeys.size() > 0) {
             String fk = getFK(sqliteDAO.table_name);
             onStr = this.table_name + "." + fk + "=" + sqliteDAO.table_name + "." + sqliteDAO.primaryKey;
-        } else if (this.foriegnKey != null && this.foriegnKey != "") {
+        } else if (this.foriegnKey != null && !this.foriegnKey.equals("")) {
             onStr = this.table_name + "." + this.foriegnKey + "=" + sqliteDAO.table_name + "." + sqliteDAO.primaryKey;
         }
         on(onStr);
@@ -271,9 +269,36 @@ public class SqliteDAO implements ISqliteDAO {
         return this;
     }
 
+    public ISqliteDAO jsonList() {
+        jsonArray = cur2jsonList(queryCursor);
+        return this;
+    }
+
     @Override
     public <T> T getObject(Class<T> classOfT) {
+        execute().json();
         return gson.fromJson(jsonObject.toString(), classOfT);
+    }
+
+    @Override
+    public <T, V> ArrayList<T> getArray(TypeToken<V> typeToken) {
+        execute().jsonList();
+        return gson.fromJson(jsonArray.toString(), typeToken.getType());
+    }
+
+    @Override
+    public String getDropScript() {
+        return "DROP TABLE IF EXISTS " + table_name + ";";
+    }
+
+    @Override
+    public String getCreateScript() {
+        return createScript;
+    }
+
+    @Override
+    public void setCreateScript(String createScript) {
+        this.createScript = createScript;
     }
 
     public String getTable() {
@@ -286,10 +311,8 @@ public class SqliteDAO implements ISqliteDAO {
 
     public String getFK(String table) {
         String fk = "";
-        Iterator<ForeignKey> fkIterator = foreignKeys.iterator();
-        while (fkIterator.hasNext()) {
-            ForeignKey fkObj = (ForeignKey) fkIterator.next();
-            if (fkObj.getTableName() == table) {
+        for (ForeignKey fkObj : foreignKeys) {
+            if (fkObj.getTableName().equals(table)) {
                 fk = fkObj.getForiegnKey();
                 break;
             }
@@ -297,10 +320,32 @@ public class SqliteDAO implements ISqliteDAO {
         return fk;
     }
 
-    public JSONArray cur2json(Cursor cursor) {
-        JSONArray resultSet = new JSONArray();
+    public JSONObject cur2json(Cursor cursor) {
+        JSONObject rowObject = new JSONObject();
         cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
+        while (!cursor.isAfterLast()) {
+            int totalColumn = cursor.getColumnCount();
+            for (int i = 0; i < totalColumn; i++) {
+                if (cursor.getColumnName(i) != null) {
+                    try {
+                        rowObject.put(cursor.getColumnName(i),
+                                cursor.getString(i));
+                    } catch (Exception e) {
+                        Log.d("cur2json", e.getMessage());
+                    }
+                }
+            }
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return rowObject;
+    }
+
+    public JSONArray cur2jsonList(Cursor cursor) {
+        JSONArray jsonArray = new JSONArray();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
             int totalColumn = cursor.getColumnCount();
             JSONObject rowObject = new JSONObject();
             for (int i = 0; i < totalColumn; i++) {
@@ -313,16 +358,16 @@ public class SqliteDAO implements ISqliteDAO {
                     }
                 }
             }
-            resultSet.put(rowObject);
             cursor.moveToNext();
+            jsonArray.put(rowObject);
         }
 
         cursor.close();
-        return resultSet;
+        return jsonArray;
     }
 
 
-    public String fieldsToString(String[] fields) {
+    public String fieldsToString(String... fields) {
         String strFields = "";
 
         if (fields.length > 0) {
@@ -359,5 +404,11 @@ public class SqliteDAO implements ISqliteDAO {
         }
 
         return strFields;
+    }
+
+    protected abstract void initTable();
+
+    public String getPrimaryKey() {
+        return primaryKey;
     }
 }

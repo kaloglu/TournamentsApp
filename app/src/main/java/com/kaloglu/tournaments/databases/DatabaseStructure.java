@@ -14,6 +14,6 @@ import com.kaloglu.tournaments.models.TeamModel;
  */
 public class DatabaseStructure {
 
-    protected static final String DBNAME = "Tournaments";
+    protected static final String DBNAME = "Tournaments.db";
     protected static final int DBVERSION = 1;
 }
