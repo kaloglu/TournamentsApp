@@ -18,11 +18,9 @@ import java.util.ArrayList;
 public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayersViewHolder> {
 
     private final LayoutInflater inflater;
-    private Context context;
     ArrayList<PlayerModel> playerModelList = new ArrayList<>();
 
     public PlayersAdapter(Context context, ArrayList<PlayerModel> playerModelList) {
-        this.context = context;
         inflater = LayoutInflater.from(context);
         this.playerModelList = playerModelList;
     }
@@ -30,14 +28,13 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayersV
     @Override
     public PlayersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.row_player, parent, false);
-        PlayersViewHolder playersViewHolder = new PlayersViewHolder(view);
-        return playersViewHolder;
+        return new PlayersViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(PlayersViewHolder holder, int position) {
         PlayerModel playerModel = playerModelList.get(position);
-        holder.playerName.setText(playerModel.getName());
+        holder.playerName.setText(playerModel.getPlayerName());
         holder.favoriteTeamName.setText(playerModel.getFavoriteTeam());
     }
 

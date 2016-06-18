@@ -5,7 +5,7 @@ package com.kaloglu.tournaments.models;
  */
 public class PlayerModel {
     private long playerId;
-    private String name;
+    private String playerName;
     private long favoriteTeamId;
     private String favoriteTeam;
 
@@ -16,16 +16,16 @@ public class PlayerModel {
         return playerId;
     }
 
-    public String getName() {
-        return name;
+    public String getPlayerName() {
+        return playerName;
     }
 
     public long getFavoriteTeamId() {
         return favoriteTeamId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String playerName) {
+        this.playerName = playerName;
     }
 
     public void setFavoriteTeam(String favoriteTeam) {

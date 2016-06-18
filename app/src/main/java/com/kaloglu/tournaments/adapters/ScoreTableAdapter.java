@@ -18,11 +18,9 @@ import java.util.ArrayList;
 public class ScoreTableAdapter extends RecyclerView.Adapter<ScoreTableAdapter.ScoreTableViewHolder> {
 
     private final LayoutInflater inflater;
-    private Context context;
     ArrayList<ScoreTableModel> ScoreTableModelList = new ArrayList<>();
 
     public ScoreTableAdapter(Context context, ArrayList<ScoreTableModel> ScoreTableModelList) {
-        this.context = context;
         inflater = LayoutInflater.from(context);
         this.ScoreTableModelList = ScoreTableModelList;
     }
@@ -30,14 +28,13 @@ public class ScoreTableAdapter extends RecyclerView.Adapter<ScoreTableAdapter.Sc
     @Override
     public ScoreTableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.row_score_table, parent, false);
-        ScoreTableViewHolder scoreTableViewHolder = new ScoreTableViewHolder(view);
-        return scoreTableViewHolder;
+        return new ScoreTableViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ScoreTableViewHolder holder, int position) {
         ScoreTableModel ScoreTableModel = ScoreTableModelList.get(position);
-        holder.no.setText(ScoreTableModel.getNo());
+        holder.no.setText((position+1)+"");
         holder.playerName.setText(ScoreTableModel.getPlayerName());
         holder.played.setText(ScoreTableModel.getPlayed());
         holder.won.setText(ScoreTableModel.getWon());
@@ -46,7 +43,7 @@ public class ScoreTableAdapter extends RecyclerView.Adapter<ScoreTableAdapter.Sc
         holder.forced.setText(ScoreTableModel.getForced());
         holder.allowed.setText(ScoreTableModel.getAllowed());
         holder.diff.setText(ScoreTableModel.getDiff());
-        holder.point.setText(ScoreTableModel.getPoint());
+        holder.point.setText(ScoreTableModel.getPoints());
     }
 
     @Override
@@ -78,7 +75,7 @@ public class ScoreTableAdapter extends RecyclerView.Adapter<ScoreTableAdapter.Sc
             forced = (TextView) itemView.findViewById(R.id.forced);
             allowed = (TextView) itemView.findViewById(R.id.allowed);
             diff = (TextView) itemView.findViewById(R.id.differential);
-            point = (TextView) itemView.findViewById(R.id.point);
+            point = (TextView) itemView.findViewById(R.id.points);
         }
     }
 }

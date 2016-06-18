@@ -19,11 +19,9 @@ import java.util.ArrayList;
 public class FixturesAdapter extends RecyclerView.Adapter<FixturesAdapter.FixturesViewHolder> {
 
     private final LayoutInflater inflater;
-    private Context context;
     ArrayList<FixtureModel> fixtureModelList = new ArrayList<>();
 
     public FixturesAdapter(Context context, ArrayList<FixtureModel> fixtureModelList) {
-        this.context = context;
         inflater = LayoutInflater.from(context);
         this.fixtureModelList = fixtureModelList;
     }
@@ -31,8 +29,7 @@ public class FixturesAdapter extends RecyclerView.Adapter<FixturesAdapter.Fixtur
     @Override
     public FixturesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.row_fixture, parent, false);
-        FixturesViewHolder fixturesViewHolder = new FixturesViewHolder(view);
-        return fixturesViewHolder;
+        return new FixturesViewHolder(view);
     }
 
     @Override

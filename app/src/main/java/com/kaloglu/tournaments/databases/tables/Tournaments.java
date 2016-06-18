@@ -30,6 +30,7 @@ public class Tournaments extends SqliteDAO {
     public static Tournaments getInstance() {
         return instance;
     }
+
     @Override
     protected void initTable() {
         primaryKey = "tournamentId";
@@ -42,12 +43,17 @@ public class Tournaments extends SqliteDAO {
                 "createTS"
         };
 
-        setCreateScript("CREATE TABLE " + table_name + " (" +
-                " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-                " `" + fields[1] + "` TEXT NOT NULL," +
-                " `" + fields[2] + "` INTEGER NOT NULL DEFAULT 1," +
-                " `" + fields[3] + "` INTEGER NOT NULL DEFAULT 1," +
-                " `" + fields[4] + "` TEXT NOT NULL" +
-                " );");
     }
+
+    @Override
+    public String getCreateScript() {
+        return "CREATE TABLE " + table_name + " (" +
+                        " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+                        " `" + fields[1] + "` TEXT NOT NULL," +
+                        " `" + fields[2] + "` INTEGER NOT NULL DEFAULT 1," +
+                        " `" + fields[3] + "` INTEGER NOT NULL DEFAULT 1," +
+                        " `" + fields[4] + "` TEXT NOT NULL" +
+                        " );";
+    }
+
 }

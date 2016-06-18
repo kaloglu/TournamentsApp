@@ -18,11 +18,9 @@ import java.util.ArrayList;
 public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.TeamsViewHolder> {
 
     private final LayoutInflater inflater;
-    private Context context;
     ArrayList<TeamModel> teamModelList = new ArrayList<>();
 
     public TeamsAdapter(Context context, ArrayList<TeamModel> teamModelList) {
-        this.context = context;
         inflater = LayoutInflater.from(context);
         this.teamModelList = teamModelList;
     }
@@ -30,14 +28,13 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.TeamsViewHol
     @Override
     public TeamsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.row_team, parent, false);
-        TeamsViewHolder teamsViewHolder = new TeamsViewHolder(view);
-        return teamsViewHolder;
+        return new TeamsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(TeamsViewHolder holder, int position) {
         TeamModel teamModel = teamModelList.get(position);
-        holder.teamName.setText(teamModel.getName());
+        holder.teamName.setText(teamModel.getTeamName());
     }
 
     @Override

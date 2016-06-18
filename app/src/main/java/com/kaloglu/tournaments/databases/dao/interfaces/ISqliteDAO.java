@@ -40,5 +40,4 @@ public interface ISqliteDAO {
     String[] getFields();
     String getDropScript();
     String getCreateScript();
-    void setCreateScript(String s);
 }

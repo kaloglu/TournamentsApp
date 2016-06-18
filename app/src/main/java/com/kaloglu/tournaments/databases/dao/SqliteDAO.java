@@ -9,6 +9,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kaloglu.tournaments.databases.DBHelper;
 import com.kaloglu.tournaments.databases.dao.interfaces.ISqliteDAO;
+import com.kaloglu.tournaments.databases.tables.Cards;
+import com.kaloglu.tournaments.databases.tables.Details;
+import com.kaloglu.tournaments.databases.tables.Fixtures;
+import com.kaloglu.tournaments.databases.tables.Players;
+import com.kaloglu.tournaments.databases.tables.Teams;
+import com.kaloglu.tournaments.databases.tables.Tournaments;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +27,7 @@ import java.util.List;
  * https://github.com/sreejesh79/android-sqlitedao-demo/tree/master/app/src/main/java/com/kriyatma/sqlitedaodemo/
  */
 public abstract class SqliteDAO implements ISqliteDAO {
+    private static SqliteDAO instance;
     protected String table_name = "";
     protected String[] fields = new String[]{};
     protected String primaryKey;
@@ -37,7 +44,6 @@ public abstract class SqliteDAO implements ISqliteDAO {
     private Boolean isWhereStart = false;
     private JSONObject jsonObject;
     private JSONArray jsonArray;
-    private String createScript;
 
     public SqliteDAO(SQLiteDatabase db) {
         database = db;
@@ -291,16 +297,6 @@ public abstract class SqliteDAO implements ISqliteDAO {
         return "DROP TABLE IF EXISTS " + table_name + ";";
     }
 
-    @Override
-    public String getCreateScript() {
-        return createScript;
-    }
-
-    @Override
-    public void setCreateScript(String createScript) {
-        this.createScript = createScript;
-    }
-
     public String getTable() {
         return table_name;
     }
@@ -410,5 +406,10 @@ public abstract class SqliteDAO implements ISqliteDAO {
 
     public String getPrimaryKey() {
         return primaryKey;
+    }
+
+    public String getCreateScript(){
+        initTable();
+        return "";
     }
 }

@@ -53,7 +53,7 @@ public class Dummies {
 
         for (int i = 0; i < teams.length; i++) {
             TeamModel teamModel = new TeamModel();
-            teamModel.setName(teams[i]);
+            teamModel.setTeamName(teams[i]);
             teamDatas.add(teamModel);
         }
 
@@ -70,7 +70,7 @@ public class Dummies {
 
         for (int i = 0; i < homePlayers.length; i++) {
             FixtureModel fixtureModel = new FixtureModel();
-            fixtureModel.setTournamentName(tournaments[i]);
+//            fixtureModel.setTournamentName(tournaments[i]);
             fixtureModel.setHomePlayerName(homePlayers[i]);
             fixtureModel.setAwayPlayerName(awayPlayers[i]);
             fixtureModel.setHomeScore(homeScores[i]);
@@ -104,7 +104,7 @@ public class Dummies {
             scoreTableModel.setForced(forced[i]);
             scoreTableModel.setAllowed(allowed[i]);
             scoreTableModel.setDiff(diff[i]);
-            scoreTableModel.setPoint(point[i]);
+            scoreTableModel.setPoints(point[i]);
             standingDatas.add(scoreTableModel);
         }
 

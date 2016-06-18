@@ -32,8 +32,7 @@ public class TournamentsAdapter extends RecyclerView.Adapter<TournamentsAdapter.
     @Override
     public TournamentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.row_tournament, parent, false);
-        TournamentsViewHolder tournamentsViewHolder = new TournamentsViewHolder(view);
-        return tournamentsViewHolder;
+        return new TournamentsViewHolder(view);
     }
 
     @Override
