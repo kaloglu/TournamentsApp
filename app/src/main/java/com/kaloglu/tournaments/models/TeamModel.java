@@ -5,17 +5,17 @@ package com.kaloglu.tournaments.models;
  */
 public class TeamModel {
     private long playerId;
-    private String name;
+    private String teamName;
 
     public long getPlayerId() {
         return playerId;
     }
 
-    public String getName() {
-        return name;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

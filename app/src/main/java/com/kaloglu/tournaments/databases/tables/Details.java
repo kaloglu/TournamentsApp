@@ -10,6 +10,9 @@ import com.kaloglu.tournaments.databases.dao.SqliteDAO;
  */
 public class Details extends SqliteDAO {
     private static Details instance;
+    Tournaments tournaments;
+    Players players;
+    Teams teams;
 
     private Details(Context context) {
         super(context);
@@ -33,9 +36,9 @@ public class Details extends SqliteDAO {
 
     @Override
     protected void initTable() {
-        Tournaments tournaments = Tournaments.getInstance();
-        Players players = Players.getInstance();
-        Teams teams = Teams.getInstance();
+        tournaments = Tournaments.getInstance();
+        players = Players.getInstance();
+        teams = Teams.getInstance();
 
         primaryKey = "detailId";
         table_name = "Details";
@@ -45,15 +48,19 @@ public class Details extends SqliteDAO {
                 players.getPrimaryKey(),
                 teams.getPrimaryKey()
         };
+    }
 
-        setCreateScript("CREATE TABLE " + table_name + " (" +
-                " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-                " `" + fields[1] + "` INTEGER NOT NULL," +
-                " `" + fields[2] + "` INTEGER NOT NULL," +
-                " `" + fields[3] + "` INTEGER NOT NULL," +
-                " FOREIGN KEY(`" + fields[1] + "`) REFERENCES `" + tournaments.getTable() + "`(`" + tournaments.getPrimaryKey() + "`)," +
-                " FOREIGN KEY(`" + fields[2] + "`) REFERENCES `" + players.getTable() + "`(`" + players.getPrimaryKey() + "`)," +
-                " FOREIGN KEY(`" + fields[3] + "`) REFERENCES `" + teams.getTable() + "`(`" + players.getPrimaryKey() + "`)" +
-                " );");
+    @Override
+    public String getCreateScript() {
+        return
+                "CREATE TABLE " + table_name + " (" +
+                        " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+                        " `" + fields[1] + "` INTEGER NOT NULL," +
+                        " `" + fields[2] + "` INTEGER NOT NULL," +
+                        " `" + fields[3] + "` INTEGER NOT NULL," +
+                        " FOREIGN KEY(`" + fields[1] + "`) REFERENCES `" + tournaments.getTable() + "`(`" + tournaments.getPrimaryKey() + "`)," +
+                        " FOREIGN KEY(`" + fields[2] + "`) REFERENCES `" + players.getTable() + "`(`" + players.getPrimaryKey() + "`)," +
+                        " FOREIGN KEY(`" + fields[3] + "`) REFERENCES `" + teams.getTable() + "`(`" + players.getPrimaryKey() + "`)" +
+                        " );";
     }
 }

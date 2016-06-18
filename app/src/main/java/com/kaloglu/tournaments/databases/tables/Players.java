@@ -10,6 +10,7 @@ import com.kaloglu.tournaments.databases.dao.SqliteDAO;
  */
 public class Players extends SqliteDAO {
     private static Players instance;
+    private Teams teams;
 
     private Players(Context context) {
         super(context);
@@ -33,6 +34,7 @@ public class Players extends SqliteDAO {
 
     @Override
     protected void initTable() {
+        teams = Teams.getInstance();
         primaryKey = "playerId";
         table_name = "Players";
         fields = new String[]{
@@ -40,12 +42,16 @@ public class Players extends SqliteDAO {
                 "playerName",
                 "favoriteTeamId"
         };
+    }
 
-        setCreateScript("CREATE TABLE " + table_name + " (" +
-                " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-                " `" + fields[1] + "` TEXT NOT NULL," +
-                " `" + fields[2] + "` INTEGER NOT NULL," +
-                " FOREIGN KEY(`" + fields[2] + "`) REFERENCES `" + Teams.getInstance().getTable() + "`(`" + Teams.getInstance().getPrimaryKey() + "`)" +
-                " );");
+    @Override
+    public String getCreateScript() {
+        return
+                "CREATE TABLE " + table_name + " (" +
+                        " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+                        " `" + fields[1] + "` TEXT NOT NULL," +
+                        " `" + fields[2] + "` INTEGER NOT NULL," +
+                        " FOREIGN KEY(`" + fields[2] + "`) REFERENCES `" + teams.getTable() + "`(`" + teams.getPrimaryKey() + "`)" +
+                        " );";
     }
 }

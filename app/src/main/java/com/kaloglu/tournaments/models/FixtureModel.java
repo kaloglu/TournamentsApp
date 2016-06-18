@@ -10,7 +10,6 @@ public class FixtureModel {
     private String homeScore;
     private String awayScore;
     private long awayPlayerId;
-    private String tournamentName;
     private String homePlayerName;
     private String awayPlayerName;
 
@@ -38,10 +37,6 @@ public class FixtureModel {
         return awayPlayerId;
     }
 
-    public void setTournamentName(String tournamentName) {
-        this.tournamentName = tournamentName;
-    }
-
     public void setHomePlayerName(String homePlayerName) {
         this.homePlayerName = homePlayerName;
     }
@@ -56,10 +51,6 @@ public class FixtureModel {
 
     public void setAwayScore(String awayScore) {
         this.awayScore = awayScore;
-    }
-
-    public String getTournamentName() {
-        return tournamentName;
     }
 
     public String getHomePlayerName() {

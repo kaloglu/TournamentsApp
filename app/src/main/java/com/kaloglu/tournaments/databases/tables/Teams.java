@@ -39,10 +39,14 @@ public class Teams extends SqliteDAO {
                 primaryKey,
                 "teamName"
         };
+    }
 
-        setCreateScript("CREATE TABLE " + table_name + " (" +
-                " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-                " `" + fields[1] + "` TEXT NOT NULL" +
-                " );");
+    @Override
+    public String getCreateScript() {
+        return
+                "CREATE TABLE " + table_name + " (" +
+                        " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+                        " `" + fields[1] + "` TEXT NOT NULL" +
+                        " );";
     }
 }

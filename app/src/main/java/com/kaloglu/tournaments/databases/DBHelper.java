@@ -40,6 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, DatabaseStructure.DBNAME, null, DatabaseStructure.DBVERSION);
+
     }
 
     public void FreshDB(SQLiteDatabase sqLiteDatabase) {
@@ -94,7 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
         teams.insert("3", "Paris SG");
         teams.insert("4", "Juventus");
         teams.insert("5", "Real Madrid");
-        teams.insert("6", "Liverpool);");
+        teams.insert("6", "Liverpool");
 
         //Players...
         players.insert("1", "kaloglu", "1");

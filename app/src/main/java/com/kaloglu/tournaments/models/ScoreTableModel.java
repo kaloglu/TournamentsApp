@@ -13,7 +13,7 @@ public class ScoreTableModel {
     private String forced;
     private String allowed;
     private String diff;
-    private String point;
+    private String points;
 
     public String getNo() {
         return no;
@@ -87,11 +87,11 @@ public class ScoreTableModel {
         this.diff = diff;
     }
 
-    public String getPoint() {
-        return point;
+    public String getPoints() {
+        return points;
     }
 
-    public void setPoint(String point) {
-        this.point = point;
+    public void setPoints(String points) {
+        this.points = points;
     }
 }
