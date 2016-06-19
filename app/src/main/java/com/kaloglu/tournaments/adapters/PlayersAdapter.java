@@ -34,7 +34,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayersV
     @Override
     public void onBindViewHolder(PlayersViewHolder holder, int position) {
         PlayerModel playerModel = playerModelList.get(position);
-        holder.playerName.setText(playerModel.getPlayerName());
+        holder.playerName.setText(playerModel.getName());
         holder.favoriteTeamName.setText(playerModel.getFavoriteTeam());
     }
 

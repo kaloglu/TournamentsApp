@@ -13,7 +13,7 @@ public class FixtureModel {
     private String homePlayerName;
     private String awayPlayerName;
 
-    public long getFixtureId() {
+    public long getId() {
         return fixtureId;
     }
 

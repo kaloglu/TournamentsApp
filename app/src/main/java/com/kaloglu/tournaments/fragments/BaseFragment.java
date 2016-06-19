@@ -20,6 +20,7 @@ public abstract class BaseFragment extends Fragment {
     private int resourceID;
     private View rootView;
     private boolean showFlyerButton=false;
+    protected long tournamentId;
 
     protected abstract int setResourceID();
 
@@ -85,5 +86,13 @@ public abstract class BaseFragment extends Fragment {
 
     public void setShowFlyerButton(boolean showFlyerButton) {
         this.showFlyerButton = showFlyerButton;
+    }
+
+    public void setTournamentId(long tournamentId) {
+        this.tournamentId = tournamentId;
+    }
+
+    public long getTournamentId() {
+        return tournamentId;
     }
 }

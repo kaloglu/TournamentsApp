@@ -9,7 +9,7 @@ public class DetailModel {
     private long playerId;
     private long teamId;
 
-    public long getDetailId() {
+    public long getId() {
         return detailId;
     }
 

@@ -1,11 +1,13 @@
 package com.kaloglu.tournaments.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.google.gson.reflect.TypeToken;
 import com.kaloglu.tournaments.R;
@@ -19,8 +21,6 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class TournamentsFragment extends BaseFragment {
-
-    private Tournaments tournaments;
 
     public TournamentsFragment() {
         super.setShowFlyerButton(true);
@@ -38,11 +38,10 @@ public class TournamentsFragment extends BaseFragment {
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.tournamentList);
         if (getActivity() != null) {
 
-            TournamentsAdapter tournamentsAdapter = new TournamentsAdapter(getActivity(), getTournamentList());
+            TournamentsAdapter tournamentsAdapter = new TournamentsAdapter(getContext(), getTournamentList());
             recyclerView.setAdapter(tournamentsAdapter);
         }
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        Log.d("sqlitedaoquery",jsonArray.toString());
     }
 
@@ -67,7 +66,7 @@ public class TournamentsFragment extends BaseFragment {
     }
 
     public ArrayList<TournamentModel> getTournamentList() {
-        tournaments = Tournaments.getInstance(getActivity());
+        Tournaments tournaments = Tournaments.getInstance(getContext());
         return tournaments.find()
                 .sort("tournamentId", "DESC")
                 .limit(20)

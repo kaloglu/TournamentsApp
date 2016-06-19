@@ -12,11 +12,11 @@ public class PlayerModel {
     public PlayerModel() {
     }
 
-    public long getPlayerId() {
+    public long getId() {
         return playerId;
     }
 
-    public String getPlayerName() {
+    public String getName() {
         return playerName;
     }
 
