@@ -11,7 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.kaloglu.tournaments.commons.Commons;
+import com.kaloglu.tournaments.fragments.BaseFragment;
 import com.kaloglu.tournaments.fragments.FixturesFragment;
 import com.kaloglu.tournaments.fragments.PlayersFragment;
 import com.kaloglu.tournaments.fragments.ScoreTableFragment;
@@ -21,15 +24,19 @@ import com.kaloglu.tournaments.fragments.TournamentsFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private NavigationView navigationView;
-    private Toolbar toolbar;
-    private Fragment activeFragment;
+    private static BaseFragment activeFragment;
+    private static long tournamentId;
+
+    public static void setActiveFragment(BaseFragment activeFragment) {
+        MainActivity.activeFragment = activeFragment;
+        MainActivity.setTournamentId(activeFragment.getTournamentId());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -43,32 +50,31 @@ public class MainActivity extends AppCompatActivity
 
         //Set Fragment initiallity
         activeFragment = new TournamentsFragment();
-        getFragment(activeFragment);
+        Commons.getFragment(MainActivity.this,activeFragment);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        if (drawer != null) {
+            drawer.setDrawerListener(toggle);
+        }
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void getFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        if (drawer != null) {
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -106,12 +112,14 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_fixture:
                 activeFragment = new FixturesFragment();
+                activeFragment.setTournamentId(tournamentId);
                 break;
             case R.id.nav_player:
                 activeFragment = new PlayersFragment();
                 break;
             case R.id.nav_score_table:
                 activeFragment = new ScoreTableFragment();
+                activeFragment.setTournamentId(tournamentId);
                 break;
             case R.id.nav_team:
                 activeFragment = new TeamsFragment();
@@ -120,10 +128,16 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-        getFragment(activeFragment);
+        Commons.getFragment(MainActivity.this,activeFragment);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
+    }
+
+    public static void setTournamentId(long tournamentId) {
+        MainActivity.tournamentId = tournamentId;
     }
 }

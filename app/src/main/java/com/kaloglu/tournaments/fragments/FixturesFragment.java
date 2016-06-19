@@ -21,8 +21,6 @@ import java.util.ArrayList;
  */
 public class FixturesFragment extends BaseFragment {
 
-    private Fixtures fixtures;
-
     public FixturesFragment() {
         super.setShowFlyerButton(true);
     }
@@ -37,7 +35,7 @@ public class FixturesFragment extends BaseFragment {
         View rootView = super.getRootView();
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.fixtureList);
 
-        FixturesAdapter fixturesAdapter = new FixturesAdapter(getActivity(), getFixtureList());
+        FixturesAdapter fixturesAdapter = new FixturesAdapter(getActivity(), getFixtureList(tournamentId));
         recyclerView.setAdapter(fixturesAdapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -63,8 +61,8 @@ public class FixturesFragment extends BaseFragment {
 
     }
 
-    public ArrayList<FixtureModel> getFixtureList() {
-        fixtures = Fixtures.getInstance(getActivity());
+    public ArrayList<FixtureModel> getFixtureList(long tournamentId) {
+        Fixtures fixtures = Fixtures.getInstance(getActivity());
         String sqlQuery="select "+
                 "fixtureId, " +
                 "homePlayerId, " +
@@ -74,7 +72,8 @@ public class FixturesFragment extends BaseFragment {
                 "awayPlayerId, " +
                 "(select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')' from Players where Players.playerId=Fixtures.awayPlayerId) as 'awayPlayerName'"+
 
-        "from Fixtures";
+        "from Fixtures where tournamentId=" + tournamentId;
         return fixtures.select(sqlQuery).getArray(new TypeToken<ArrayList<FixtureModel>>() {});
     }
+
 }

@@ -4,18 +4,18 @@ package com.kaloglu.tournaments.models;
  * Created by kaloglu on 23/05/16.
  */
 public class TeamModel {
-    private long playerId;
+    private long teamId;
     private String teamName;
 
-    public long getPlayerId() {
-        return playerId;
+    public long getId() {
+        return teamId;
     }
 
-    public String getTeamName() {
+    public String getName() {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
+    public void setName(String teamName) {
         this.teamName = teamName;
     }
 }

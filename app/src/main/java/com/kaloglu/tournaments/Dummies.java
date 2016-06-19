@@ -53,7 +53,7 @@ public class Dummies {
 
         for (int i = 0; i < teams.length; i++) {
             TeamModel teamModel = new TeamModel();
-            teamModel.setTeamName(teams[i]);
+            teamModel.setName(teams[i]);
             teamDatas.add(teamModel);
         }
 

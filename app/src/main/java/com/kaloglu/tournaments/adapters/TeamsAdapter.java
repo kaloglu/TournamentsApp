@@ -34,7 +34,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.TeamsViewHol
     @Override
     public void onBindViewHolder(TeamsViewHolder holder, int position) {
         TeamModel teamModel = teamModelList.get(position);
-        holder.teamName.setText(teamModel.getTeamName());
+        holder.teamName.setText(teamModel.getName());
     }
 
     @Override
