@@ -17,12 +17,13 @@ import com.kaloglu.tournaments.R;
  */
 public abstract class BaseFragment extends Fragment {
     private Context context;
-    private int resourceID;
+    private int layoutResourceID;
     private View rootView;
-    private boolean showFlyerButton=false;
+    private boolean showFlierButton = false;
     protected long tournamentId;
+    public FloatingActionButton flierButton;
 
-    protected abstract int setResourceID();
+    protected abstract int setLayoutResourceID();
 
     protected abstract void initializeScreen();
 
@@ -40,20 +41,25 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        resourceID = setResourceID();
+        layoutResourceID = setLayoutResourceID();
 
-         FloatingActionButton flyerButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        if (showFlyerButton)
-            flyerButton.setVisibility(View.VISIBLE);
-        else
-            flyerButton.setVisibility(View.GONE);
+        initFlyerButton();
 
         super.onCreate(savedInstanceState);
     }
 
+    public void initFlyerButton() {
+        flierButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        if (showFlierButton)
+            flierButton.setVisibility(View.VISIBLE);
+        else
+            flierButton.setVisibility(View.GONE);
+
+    }
+
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(resourceID, container, false);
+        View rootView = inflater.inflate(layoutResourceID, container, false);
         context = rootView.getContext();
         this.rootView = rootView;
         onFragmentCreateView();
@@ -84,8 +90,8 @@ public abstract class BaseFragment extends Fragment {
         return rootView;
     }
 
-    public void setShowFlyerButton(boolean showFlyerButton) {
-        this.showFlyerButton = showFlyerButton;
+    public void setShowFlierButton(boolean showFlierButton) {
+        this.showFlierButton = showFlierButton;
     }
 
     public void setTournamentId(long tournamentId) {
@@ -94,5 +100,10 @@ public abstract class BaseFragment extends Fragment {
 
     public long getTournamentId() {
         return tournamentId;
+    }
+
+    @Override
+    public Context getContext() {
+        return context;
     }
 }

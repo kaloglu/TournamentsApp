@@ -9,12 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kaloglu.tournaments.databases.DBHelper;
 import com.kaloglu.tournaments.databases.dao.interfaces.ISqliteDAO;
-import com.kaloglu.tournaments.databases.tables.Cards;
-import com.kaloglu.tournaments.databases.tables.Details;
-import com.kaloglu.tournaments.databases.tables.Fixtures;
-import com.kaloglu.tournaments.databases.tables.Players;
-import com.kaloglu.tournaments.databases.tables.Teams;
-import com.kaloglu.tournaments.databases.tables.Tournaments;
+import com.kaloglu.tournaments.models.BaseModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,6 +39,7 @@ public abstract class SqliteDAO implements ISqliteDAO {
     private Boolean isWhereStart = false;
     private JSONObject jsonObject;
     private JSONArray jsonArray;
+    private int rowId;
 
     public SqliteDAO(SQLiteDatabase db) {
         database = db;
@@ -160,6 +156,10 @@ public abstract class SqliteDAO implements ISqliteDAO {
             counter++;
         }
         return this.save(strValues);
+    }
+
+    public ISqliteDAO insert(BaseModel model) {
+        return this.save(model.getSaveableString());
     }
 
     public ISqliteDAO update(String[] columns, Object[] values) {
@@ -408,8 +408,9 @@ public abstract class SqliteDAO implements ISqliteDAO {
         return primaryKey;
     }
 
-    public String getCreateScript(){
+    public String getCreateScript() {
         initTable();
         return "";
     }
+
 }
