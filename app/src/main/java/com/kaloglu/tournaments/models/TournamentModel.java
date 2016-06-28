@@ -1,17 +1,15 @@
 package com.kaloglu.tournaments.models;
 
-import android.database.Cursor;
-
 /**
  * Created by kaloglu on 23/05/16.
  */
 public class TournamentModel extends BaseModel {
 
-    private long tournamentId;
+    private long tournamentId = Long.MAX_VALUE;
     private String tournamentName;
     private boolean isLeague;
     private boolean hasRevenge;
-    private long createTS;
+    private long createTS = Long.MAX_VALUE;
 
     public TournamentModel() {
     }
@@ -56,5 +54,10 @@ public class TournamentModel extends BaseModel {
         return hasRevenge;
     }
 
+
+    @Override
+    public String getSaveableString() {
+        return "'" + NullCheck(tournamentId, 0) + "', '" + tournamentName + "', '" + isLeague + "', '" + hasRevenge + "', '" + NullCheck(createTS, System.currentTimeMillis()) + "'";
+    }
 
 }

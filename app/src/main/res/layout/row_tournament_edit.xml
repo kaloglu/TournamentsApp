@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.edit.TournamentEdit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp">
+
+        <EditText
+            android:id="@+id/tournamentEdit_edit_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/tournamentEdit_label_name" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/tournamentEdit_radioGroup_isLeague"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <RadioButton
+            android:id="@+id/tournamentEdit_radio_league"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tournamentEdit_label_league" />
+
+        <RadioButton
+            android:id="@+id/tournamentEdit_radio_knockOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tournamentEdit_label_knockOut" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/tournamentEdit_radioGroup_hasRevenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <RadioButton
+            android:id="@+id/tournamentEdit_radio_singleMatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tournamentEdit_label_singleMatch" />
+
+        <RadioButton
+            android:id="@+id/tournamentEdit_radio_revenge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tournamentEdit_label_revenge" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <Button
+            android:id="@+id/tournamentEdit_button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tournamentEdit_button_label_cancel" />
+
+        <Button
+            android:id="@+id/tournamentEdit_button_submit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tournamentEdit_button_label_submit" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -23,11 +23,11 @@ public class TeamsFragment extends BaseFragment {
     private Teams teams;
 
     public TeamsFragment() {
-        super.setShowFlyerButton(true);
+        super.setShowFlierButton(true);
     }
 
     @Override
-    protected int setResourceID() {
+    protected int setLayoutResourceID() {
         return R.layout.fragment_teams;
     }
 

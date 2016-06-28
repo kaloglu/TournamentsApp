@@ -1,18 +1,17 @@
 package com.kaloglu.tournaments.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.google.gson.reflect.TypeToken;
 import com.kaloglu.tournaments.R;
 import com.kaloglu.tournaments.adapters.TournamentsAdapter;
 import com.kaloglu.tournaments.databases.tables.Tournaments;
+import com.kaloglu.tournaments.fragments.edit.TournamentEdit;
 import com.kaloglu.tournaments.models.TournamentModel;
 
 import java.util.ArrayList;
@@ -23,12 +22,12 @@ import java.util.ArrayList;
 public class TournamentsFragment extends BaseFragment {
 
     public TournamentsFragment() {
-        super.setShowFlyerButton(true);
+        super.setShowFlierButton(true);
 
     }
 
     @Override
-    protected int setResourceID() {
+    protected int setLayoutResourceID() {
         return R.layout.fragment_tournaments;
     }
 
@@ -43,6 +42,19 @@ public class TournamentsFragment extends BaseFragment {
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        Log.d("sqlitedaoquery",jsonArray.toString());
+    }
+
+    @Override
+    public void initFlyerButton() {
+        super.initFlyerButton();
+
+        flierButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TournamentEdit tournamentEdit = new TournamentEdit();
+                tournamentEdit.show(getFragmentManager(), "TournamentEdit");
+            }
+        });
     }
 
     @Override

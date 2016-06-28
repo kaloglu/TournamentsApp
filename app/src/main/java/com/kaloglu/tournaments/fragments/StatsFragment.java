@@ -23,11 +23,11 @@
 //    private Stats stats;
 //
 //    public StatsFragment() {
-//        super.setShowFlyerButton(true);
+//        super.setShowFlierButton(true);
 //    }
 //
 //    @Override
-//    protected int setResourceID() {
+//    protected int setLayoutResourceID() {
 //        return R.layout.fragment_players;
 //    }
 //

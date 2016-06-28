@@ -12,7 +12,6 @@ import com.kaloglu.tournaments.R;
 import com.kaloglu.tournaments.adapters.FixturesAdapter;
 import com.kaloglu.tournaments.databases.tables.Fixtures;
 import com.kaloglu.tournaments.models.FixtureModel;
-import com.kaloglu.tournaments.models.ScoreTableModel;
 
 import java.util.ArrayList;
 
@@ -22,11 +21,11 @@ import java.util.ArrayList;
 public class FixturesFragment extends BaseFragment {
 
     public FixturesFragment() {
-        super.setShowFlyerButton(true);
+        super.setShowFlierButton(false);
     }
 
     @Override
-    protected int setResourceID() {
+    protected int setLayoutResourceID() {
         return R.layout.fragment_fixtures;
     }
 
@@ -63,17 +62,18 @@ public class FixturesFragment extends BaseFragment {
 
     public ArrayList<FixtureModel> getFixtureList(long tournamentId) {
         Fixtures fixtures = Fixtures.getInstance(getActivity());
-        String sqlQuery="select "+
+        String sqlQuery = "select " +
                 "fixtureId, " +
                 "homePlayerId, " +
                 "(select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')'   from Players where Players.playerId=Fixtures.homePlayerId) as 'homePlayerName', " +
-                "homeScore,"+
+                "homeScore," +
                 "awayScore, " +
                 "awayPlayerId, " +
-                "(select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')' from Players where Players.playerId=Fixtures.awayPlayerId) as 'awayPlayerName'"+
+                "(select playerName || ' (' || (select teamName from Teams left outer join Details on (Teams.teamId=Details.teamId) where Details.tournamentId=Fixtures.tournamentId and Details.playerId=Players.playerId) ||  ')' from Players where Players.playerId=Fixtures.awayPlayerId) as 'awayPlayerName'" +
 
-        "from Fixtures where tournamentId=" + tournamentId;
-        return fixtures.select(sqlQuery).getArray(new TypeToken<ArrayList<FixtureModel>>() {});
+                "from Fixtures where tournamentId=" + tournamentId;
+        return fixtures.select(sqlQuery).getArray(new TypeToken<ArrayList<FixtureModel>>() {
+        });
     }
 
 }

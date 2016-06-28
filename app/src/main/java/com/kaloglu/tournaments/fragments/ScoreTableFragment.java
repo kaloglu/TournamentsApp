@@ -21,12 +21,12 @@ import java.util.ArrayList;
 public class ScoreTableFragment extends BaseFragment {
 
     public ScoreTableFragment() {
-        super.setShowFlyerButton(true);
+        super.setShowFlierButton(false);
 
     }
 
     @Override
-    protected int setResourceID() {
+    protected int setLayoutResourceID() {
         return R.layout.fragment_tournaments;
     }
 
@@ -88,6 +88,7 @@ public class ScoreTableFragment extends BaseFragment {
                 "((select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and ((Fixtures.homePlayerId=Details.playerId and homeScore>awayScore) or (Fixtures.awayPlayerId=Details.playerId and awayScore>homeScore))) *3)  + (select count(Fixtures.fixtureId) from Fixtures where Fixtures.tournamentId = Details.tournamentId and ((Fixtures.homePlayerId=Details.playerId and homeScore=awayScore) or (Fixtures.awayPlayerId=Details.playerId and awayScore=homeScore)))as 'points' " +
                 " from Details order by points desc";
 
-        return scoreTableDatas.select(sqlQuery).getArray(new TypeToken<ArrayList<ScoreTableModel>>() {});
+        return scoreTableDatas.select(sqlQuery).getArray(new TypeToken<ArrayList<ScoreTableModel>>() {
+        });
     }
 }

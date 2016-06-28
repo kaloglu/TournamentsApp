@@ -22,12 +22,12 @@
 //    private Cards cards;
 //
 //    public CardsFragment() {
-//        super.setShowFlyerButton(true);
+//        super.setShowFlierButton(true);
 //
 //    }
 //
 //    @Override
-//    protected int setResourceID() {
+//    protected int setLayoutResourceID() {
 //        return R.layout.fragment_cards;
 //    }
 //

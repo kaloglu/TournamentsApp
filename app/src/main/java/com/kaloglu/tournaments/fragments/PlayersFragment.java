@@ -12,7 +12,6 @@ import com.kaloglu.tournaments.R;
 import com.kaloglu.tournaments.adapters.PlayersAdapter;
 import com.kaloglu.tournaments.databases.tables.Players;
 import com.kaloglu.tournaments.models.PlayerModel;
-import com.kaloglu.tournaments.models.TournamentModel;
 
 import java.util.ArrayList;
 
@@ -24,11 +23,11 @@ public class PlayersFragment extends BaseFragment {
     private Players players;
 
     public PlayersFragment() {
-        super.setShowFlyerButton(true);
+        super.setShowFlierButton(true);
     }
 
     @Override
-    protected int setResourceID() {
+    protected int setLayoutResourceID() {
         return R.layout.fragment_players;
     }
 
