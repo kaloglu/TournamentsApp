@@ -122,17 +122,21 @@ public abstract class SqliteDAO implements ISqliteDAO {
     }
 
     public ISqliteDAO save(String values) {
+        return save(false, values);
+    }
+
+    public ISqliteDAO save(boolean includeIdFields, String values) {
 
         String fields_str = "";
         Integer counter = 0;
         for (String field : fields) {
-//            if (field != primaryKey) {
-            if (counter < fields.length - 1) {
-                fields_str += field + ",";
-            } else {
-                fields_str += field;
+            if (includeIdFields || !field.equals(primaryKey)) {
+                if (counter < fields.length - 1) {
+                    fields_str += field + ",";
+                } else {
+                    fields_str += field;
+                }
             }
-//            }
 
             counter++;
 
@@ -144,6 +148,10 @@ public abstract class SqliteDAO implements ISqliteDAO {
     }
 
     public ISqliteDAO insert(String... values) {
+        return insert(false, values);
+    }
+
+    public ISqliteDAO insert(boolean includeIdField, String... values) {
         Log.d("ISqliteDAO", "insert");
         String strValues = "";
         Integer counter = 0;
@@ -155,11 +163,15 @@ public abstract class SqliteDAO implements ISqliteDAO {
             }
             counter++;
         }
-        return this.save(strValues);
+        return this.save(includeIdField, strValues);
     }
 
     public ISqliteDAO insert(BaseModel model) {
-        return this.save(model.getSaveableString());
+        return insert(false, model);
+    }
+
+    public ISqliteDAO insert(boolean includeIdfield, BaseModel model) {
+        return this.save(includeIdfield,model.getSaveableString());
     }
 
     public ISqliteDAO update(String[] columns, Object[] values) {
@@ -207,8 +219,7 @@ public abstract class SqliteDAO implements ISqliteDAO {
 
     public ISqliteDAO sort(String field, String sortby) {
         strSort = "ORDER BY " + field;
-        if (!sortby.equals(""))
-            strSort += " " + sortby + " ";
+        if (!sortby.equals("")) strSort += " " + sortby + " ";
         return this;
     }
 
@@ -324,8 +335,7 @@ public abstract class SqliteDAO implements ISqliteDAO {
             for (int i = 0; i < totalColumn; i++) {
                 if (cursor.getColumnName(i) != null) {
                     try {
-                        rowObject.put(cursor.getColumnName(i),
-                                cursor.getString(i));
+                        rowObject.put(cursor.getColumnName(i), cursor.getString(i));
                     } catch (Exception e) {
                         Log.d("cur2json", e.getMessage());
                     }
@@ -347,8 +357,7 @@ public abstract class SqliteDAO implements ISqliteDAO {
             for (int i = 0; i < totalColumn; i++) {
                 if (cursor.getColumnName(i) != null) {
                     try {
-                        rowObject.put(cursor.getColumnName(i),
-                                cursor.getString(i));
+                        rowObject.put(cursor.getColumnName(i), cursor.getString(i));
                     } catch (Exception e) {
                         Log.d("cur2json", e.getMessage());
                     }

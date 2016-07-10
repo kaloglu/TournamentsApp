@@ -29,6 +29,7 @@ public class Players extends SqliteDAO {
     }
 
     public static Players getInstance() {
+        if (instance == null) throw new NullPointerException("instance not initialized yet!");
         return instance;
     }
 
@@ -37,21 +38,16 @@ public class Players extends SqliteDAO {
         teams = Teams.getInstance();
         primaryKey = "playerId";
         table_name = "Players";
-        fields = new String[]{
-                primaryKey,
-                "playerName",
-                "favoriteTeamId"
-        };
+        fields = new String[]{primaryKey, "playerName", "favoriteTeamId"};
     }
 
     @Override
     public String getCreateScript() {
-        return
-                "CREATE TABLE " + table_name + " (" +
-                        " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-                        " `" + fields[1] + "` TEXT NOT NULL," +
-                        " `" + fields[2] + "` INTEGER NOT NULL," +
-                        " FOREIGN KEY(`" + fields[2] + "`) REFERENCES `" + teams.getTable() + "`(`" + teams.getPrimaryKey() + "`)" +
-                        " );";
+        return "CREATE TABLE " + table_name + " (" +
+                " `" + fields[0] + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+                " `" + fields[1] + "` TEXT NOT NULL," +
+                " `" + fields[2] + "` INTEGER NOT NULL," +
+                " FOREIGN KEY(`" + fields[2] + "`) REFERENCES `" + teams.getTable() + "`(`" + teams.getPrimaryKey() + "`)" +
+                " );";
     }
 }

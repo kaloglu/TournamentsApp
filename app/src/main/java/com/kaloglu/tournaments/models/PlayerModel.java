@@ -3,10 +3,10 @@ package com.kaloglu.tournaments.models;
 /**
  * Created by kaloglu on 23/05/16.
  */
-public class PlayerModel {
-    private long playerId;
+public class PlayerModel extends BaseModel {
+    private long playerId = Long.MAX_VALUE;
     private String playerName;
-    private long favoriteTeamId;
+    private long favoriteTeamId = Long.MAX_VALUE;
     private String favoriteTeam;
 
     public PlayerModel() {
@@ -35,4 +35,14 @@ public class PlayerModel {
     public String getFavoriteTeam() {
         return favoriteTeam;
     }
+
+    public void setFavoriteTeamId(long favoriteTeamId) {
+        this.favoriteTeamId = favoriteTeamId;
+    }
+
+    @Override
+    public String getSaveableString() {
+        return "'" + playerName + "', " + favoriteTeamId + "";
+    }
+
 }

@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.edit.PlayerEdit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp">
+
+        <EditText
+            android:id="@+id/playerEdit_edit_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/playerEdit_label_name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/playerEdit_autoComplete_favoriteTeam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ems="10"
+            android:hint="@string/playerEdit_label_favoriteTeam" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <Button
+            android:id="@+id/playerEdit_button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_label_cancel" />
+
+        <Button
+            android:id="@+id/playerEdit_button_submit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_label_submit" />
+
+    </LinearLayout>
+</LinearLayout>

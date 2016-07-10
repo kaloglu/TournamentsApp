@@ -31,7 +31,9 @@ public abstract class BaseEdit extends DialogFragment implements View.OnClickLis
 
     protected abstract void initializeTabBar();
 
-    protected abstract void clickSubmitButton();
+    protected void clickSubmitButton() {
+        this.dismiss();
+    }
 
     protected void clickCancelButton() {
         this.dismiss();
@@ -69,10 +71,8 @@ public abstract class BaseEdit extends DialogFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == submitResourceId)
-            clickSubmitButton();
-        if (v.getId() == cancelResourceId)
-            clickCancelButton();
+        if (v.getId() == submitResourceId) clickSubmitButton();
+        if (v.getId() == cancelResourceId) clickCancelButton();
     }
 
     /**
@@ -86,4 +86,13 @@ public abstract class BaseEdit extends DialogFragment implements View.OnClickLis
         RadioButton choosen = (RadioButton) radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
         return ((choosen != null) && choosen.getText().equals(getResources().getString(checkResourceId)));
     }
+
+    private boolean isNull(int value) {
+        return (value == Integer.MAX_VALUE || value == Integer.MIN_VALUE);
+    }
+
+    boolean isNull(long value) {
+        return (value == Long.MAX_VALUE || value == Long.MIN_VALUE);
+    }
+
 }
