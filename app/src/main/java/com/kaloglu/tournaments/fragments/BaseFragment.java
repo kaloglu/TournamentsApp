@@ -20,7 +20,7 @@ public abstract class BaseFragment extends Fragment {
     private int layoutResourceID;
     private View rootView;
     private boolean showFlierButton = false;
-    protected long tournamentId;
+    protected long tournamentId = Long.MAX_VALUE;
     public FloatingActionButton flierButton;
 
     protected abstract int setLayoutResourceID();

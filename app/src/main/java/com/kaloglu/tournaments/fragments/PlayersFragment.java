@@ -11,6 +11,8 @@ import com.google.gson.reflect.TypeToken;
 import com.kaloglu.tournaments.R;
 import com.kaloglu.tournaments.adapters.PlayersAdapter;
 import com.kaloglu.tournaments.databases.tables.Players;
+import com.kaloglu.tournaments.fragments.edit.PlayerEdit;
+import com.kaloglu.tournaments.fragments.edit.TournamentEdit;
 import com.kaloglu.tournaments.models.PlayerModel;
 
 import java.util.ArrayList;
@@ -62,11 +64,22 @@ public class PlayersFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void initFlyerButton() {
+        super.initFlyerButton();
+
+        flierButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayerEdit playerEdit = new PlayerEdit();
+                playerEdit.show(getFragmentManager(), "PlayerEdit");
+            }
+        });
+    }
+
     public ArrayList<PlayerModel> getPlayerList() {
         players = Players.getInstance(getActivity());
-        return players.find()
-                .sort("playerName", "ASC")
-                .getArray(new TypeToken<ArrayList<PlayerModel>>() {
-                });
+        return players.find().sort("playerName", "ASC").getArray(new TypeToken<ArrayList<PlayerModel>>() {
+        });
     }
 }

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static BaseFragment activeFragment;
-    private static long tournamentId;
+    private static long tournamentId = Long.MAX_VALUE;
 
     public static void setActiveFragment(BaseFragment activeFragment) {
         MainActivity.activeFragment = activeFragment;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 //        });
 
         //Set Fragment initiallity
-        activeFragment = new TournamentsFragment();
+        activeFragment = new PlayersFragment();
         Commons.getFragment(MainActivity.this,activeFragment);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

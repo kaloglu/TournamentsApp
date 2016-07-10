@@ -7,10 +7,9 @@ public abstract class BaseModel {
     public abstract String getSaveableString();
 
     public long NullCheck(long longField, long ifNull) {
-        if (longField == 0 || longField == Long.MAX_VALUE)
-            return ifNull;
-        else
-            return longField;
+        if (longField == 0 || longField == Long.MAX_VALUE) return ifNull;
+        else return longField;
 
     }
+
 }

@@ -76,14 +76,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tournamentEdit_button_label_cancel" />
+            android:text="@string/button_label_cancel" />
 
         <Button
             android:id="@+id/tournamentEdit_button_submit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tournamentEdit_button_label_submit" />
+            android:text="@string/button_label_submit" />
 
     </LinearLayout>
 </LinearLayout>

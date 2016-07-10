@@ -58,13 +58,15 @@ public class TournamentEdit extends BaseEdit {
     @Override
     public void clickSubmitButton() {
         TournamentModel tournamentModel = new TournamentModel();
+        Tournaments tournaments = Tournaments.getInstance(getContext());
 
         tournamentModel.setName(editName.getText().toString());
         tournamentModel.setLeague(getRadiosBoolean(isLeagueRadios, R.string.tournamentEdit_label_league));
         tournamentModel.setHasRevenge(getRadiosBoolean(hasRevengeRadios, R.string.tournamentEdit_label_revenge));
 
-        Tournaments tournaments = Tournaments.getInstance(getContext());
         tournaments.insert(tournamentModel);
+
+        super.clickSubmitButton();
     }
 
 }

@@ -3,13 +3,13 @@ package com.kaloglu.tournaments.models;
 /**
  * Created by kaloglu on 23/05/16.
  */
-public class FixtureModel {
-    private long fixtureId;
-    private long tournamentId;
-    private long homePlayerId;
-    private String homeScore;
-    private String awayScore;
-    private long awayPlayerId;
+public class FixtureModel extends BaseModel{
+    private long fixtureId = Long.MAX_VALUE;
+    private long tournamentId = Long.MAX_VALUE;
+    private long homePlayerId = Long.MAX_VALUE;
+    private int homeScore;
+    private int awayScore;
+    private long awayPlayerId = Long.MAX_VALUE;
     private String homePlayerName;
     private String awayPlayerName;
 
@@ -25,16 +25,24 @@ public class FixtureModel {
         return homePlayerId;
     }
 
-    public String getHomeScore() {
+    public void setHomePlayerId(long homePlayerId) {
+        this.homePlayerId = homePlayerId;
+    }
+
+    public int getHomeScore() {
         return homeScore;
     }
 
-    public String getAwayScore() {
+    public int getAwayScore() {
         return awayScore;
     }
 
     public long getAwayPlayerId() {
         return awayPlayerId;
+    }
+
+    public void setAwayPlayerId(long awayPlayerId) {
+        this.awayPlayerId = awayPlayerId;
     }
 
     public void setHomePlayerName(String homePlayerName) {
@@ -45,11 +53,11 @@ public class FixtureModel {
         this.awayPlayerName = awayPlayerName;
     }
 
-    public void setHomeScore(String homeScore) {
+    public void setHomeScore(int homeScore) {
         this.homeScore = homeScore;
     }
 
-    public void setAwayScore(String awayScore) {
+    public void setAwayScore(int awayScore) {
         this.awayScore = awayScore;
     }
 
@@ -59,5 +67,10 @@ public class FixtureModel {
 
     public String getAwayPlayerName() {
         return awayPlayerName;
+    }
+
+    @Override
+    public String getSaveableString() {
+        return tournamentId + ", " + homePlayerId + ", " + homeScore + ", " + awayScore + ", " + awayPlayerId;
     }
 }

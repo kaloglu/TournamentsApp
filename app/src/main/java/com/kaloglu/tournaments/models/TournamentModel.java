@@ -57,7 +57,7 @@ public class TournamentModel extends BaseModel {
 
     @Override
     public String getSaveableString() {
-        return "'" + NullCheck(tournamentId, 0) + "', '" + tournamentName + "', '" + isLeague + "', '" + hasRevenge + "', '" + NullCheck(createTS, System.currentTimeMillis()) + "'";
+        return "'" + tournamentName + "', '" + isLeague + "', '" + hasRevenge + "', '" + NullCheck(createTS, System.currentTimeMillis()) + "'";
     }
 
 }
